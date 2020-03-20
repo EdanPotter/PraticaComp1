@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "BuildCustom",
+            "command": "C:\\MinGW\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "${fileDirname}\\include\\**.cpp",
+                "${file}",
+                "-o",
+                "${fileDirname}\\build\\main.exe",
+                "-lglu32", "-lopengl32", "-lfreeglut"
+                // "-lglfw3", "-lopengl32"
+            ],
+            "options": {
+                "cwd": "C:\\MinGW\\bin"
+            }
+        }
+    ]
+}
