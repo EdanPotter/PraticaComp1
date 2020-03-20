@@ -125,7 +125,7 @@ void Teclado(unsigned char key, int x, int y)
     glutPostRedisplay();
 }
 
-// Fun��o respons�vel por inicializar par�metros e vari�veis
+// Fun��o respons�vel por inicializar par�metros e vari�veis ddd
 void Inicializa(void)
 {
 	// Define a janela de visualiza��o 2D
