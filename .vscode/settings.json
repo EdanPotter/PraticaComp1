@@ -2,7 +2,6 @@
     "files.associations": {
         "iostream": "cpp",
         "string": "cpp",
-<<<<<<< HEAD
         "iomanip": "cpp",
         "array": "cpp",
         "atomic": "cpp",
@@ -44,8 +43,5 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp"
-=======
-        "iomanip": "cpp"
->>>>>>> cef82a0441bb4e54b2908f6d21394db71e911694
     }
 }
