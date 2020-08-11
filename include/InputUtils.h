@@ -24,6 +24,7 @@ class TextBar {
         void reText();
         float getValue();
         void split();
+        void clearSub();
         float getAt(int i);
         void putChar(unsigned char key);
         void popChar();

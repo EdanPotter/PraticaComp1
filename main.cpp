@@ -16,21 +16,28 @@ using namespace std;
 
 int winh = 480, winw = 640;
 void teste(int) {}
-char s[100];
+
+// asdasdasdasasds asniasdk
+
 string boxValue = "";
-int qtLetras = 0;
+
 Button triButton = Button("Triangulo", winw, winh, 0, teste);
 Button quaButton = Button("Quadrado", winw, winh, 55, teste);
 Button hexaButton = Button("Hexagono", winw, winh, 118, teste);
 Button apagaButton = Button("Apagar", winw, winh, 180, teste);
+Button transButton = Button("Translacao", winw, winh, 225, teste);
+Button scaleButton = Button("Escala", winw, winh, 290, teste);
+Button rotButton = Button("Rotacao", winw, winh, 330, teste);
+Button reflexButton = Button("Reflexao", winw, winh, 380, teste);
+Button cisButton = Button("Cisalhamento", winw, winh, 430, teste);
 
 TextBar barText = TextBar();
 
 void Desenha(void) {
-	// Limpa a janela de visualização com a cor branca
+	// Limpa a janela de visualização com a cor branca xd
 	glClearColor(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
-
+    // Barra
 	glColor3f(190/255.0, 190/255.0, 190/255.0);
     glBegin(GL_QUADS);
         glVertex2f(0, 0.95);
@@ -38,10 +45,16 @@ void Desenha(void) {
         glVertex2f(1, 1);
         glVertex2f(0, 1);
     glEnd();
+    // Botoes
     triButton.reDraw();
     quaButton.reDraw();
     hexaButton.reDraw();
     apagaButton.reDraw();
+    transButton.reDraw();
+    scaleButton.reDraw();
+    rotButton.reDraw();
+    reflexButton.reDraw();
+    cisButton.reDraw();
     
     barText.reText();
     // cout << t.getValue() << endl;
@@ -49,46 +62,6 @@ void Desenha(void) {
 
 	//Executa os comandos OpenGL 
 	glFlush();
-}
-// Gerenciamento do menu com as opções de cores
-void MenuCor(int op)
-{
-    switch (op)
-    {
-    default:
-        break;
-    }
-    glutPostRedisplay();
-}
-// Gerenciamento do menu com as opções de cores
-void MenuPrimitiva(int op)
-{
-    switch (op)
-    {
-        default:
-            break;
-    }
-    glutPostRedisplay();
-}
-
-// Gerenciamento do menu principal
-// void MenuPrincipal(int op)
-// {
-//     f.setForma((FORMA)op);
-//     return;
-// }
-
-// Criacao do Menu
-void CriaMenu()
-{
-    int menu, submenu1, submenu2;
-
-    // menu = glutCreateMenu(MenuPrincipal);
-    // glutAddMenuEntry("Triângulo", TRIANGULO);
-    // glutAddMenuEntry("Quadrado", QUADRADO);
-    // glutAddMenuEntry("Hexágono", HEXAGONO);
-
-    glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 
 void Mouse(int rightkey, int release, int x, int y) {
@@ -102,10 +75,18 @@ void Mouse(int rightkey, int release, int x, int y) {
                 cout << "HEXA" << endl;
             } else if(apagaButton.colision(x, y)) {
                 cout << "APAGA" << endl;
+            } else if (transButton.colision(x, y)) {
+                cout << "TRANS" << endl;
+            } else if (scaleButton.colision(x, y)) {
+                cout << "SCA" << endl;
+            } else if(rotButton.colision(x, y)) {
+                cout << "ROT" << endl;
+            } else if (reflexButton.colision(x, y)) {
+                cout << "REF" << endl;
+            } else if(cisButton.colision(x, y)) {
+                cout << "CIS" << endl;
             }
         }
-    } else {
-        CriaMenu();
     }
 }
 
@@ -118,6 +99,7 @@ void Teclado(unsigned char key, int x, int y)
         barText.popChar();
     } else if(key == 13) {
         barText.split();
+        // Pega o selecionado e desenha // limpa sub // 
         cout << barText.getAt(0) << "/" << barText.getAt(2) << "/" << endl;
     } else {
         barText.putChar(key);
@@ -126,10 +108,9 @@ void Teclado(unsigned char key, int x, int y)
     glutPostRedisplay();
 }
 
-// Fun��o respons�vel por inicializar par�metros e vari�veis
-void Inicializa(void)
-{
-	// Define a janela de visualiza��o 2D
+// Função responsável por inicializar parametros e variaveis
+void Inicializa(void) {
+	// Define a janela de visualizaçao 2D
 	glMatrixMode(GL_PROJECTION);
 	gluOrtho2D(0, 1, 1, 0);
 	glMatrixMode(GL_MODELVIEW);
@@ -156,18 +137,18 @@ int main(int argc, char **argv)
 	glutInitWindowSize(winw, winh); 
     glutInitWindowPosition(600, 250);
     
-    // Cria a janela passando como argumento o t�tulo da mesma
+    // Cria a janela passando como argumento o titulo da mesma
 	glutCreateWindow("Primeiro Programa");
  
-	// Registra a fun��o callback de redesenho da janela de visualiza��o
+	// Registra a funçao callback de redesenho da janela de visualizaçao
 	glutDisplayFunc(Desenha);
     glutReshapeFunc(reshape);
 
-	// Registra a fun��o callback para tratamento das teclas ASCII
+	// Registra a funçao callback para tratamento das teclas ASCII
 	glutKeyboardFunc(Teclado);
     glutMouseFunc(Mouse);
 
-    // Chama a fun��o respons�vel por fazer as inicializa��es 
+    // Chama a funçao responsavel por fazer as inicializaçoes 
 	Inicializa();
  
 	// Inicia o processamento e aguarda intera��es do usu�rio

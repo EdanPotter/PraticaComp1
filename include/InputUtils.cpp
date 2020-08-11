@@ -100,18 +100,25 @@ float TextBar::getValue() {
 }
 
 void TextBar::split() {
-    string aux;
-    int index = 0;
-    
-    for(int i = 0; i < texto.length(); i++) {
-        if(texto.at(i) == ' ') {
-            aux = texto.substr(index, i-index);
-            index = i;
-            sub.push_back(stof(aux));
+    if(!texto.empty()) {
+        string aux;
+        int index = 0;
+        
+        for(int i = 0; i < texto.length(); i++) {
+            if(texto.at(i) == ' ') {
+                aux = texto.substr(index, i-index);
+                index = i;
+                sub.push_back(stof(aux));
+            }
         }
+        aux = texto.substr(index, texto.length()-index);
+        sub.push_back(stof(aux));
     }
-    aux = texto.substr(index, texto.length()-index);
-    sub.push_back(stof(aux));
+}
+
+void TextBar::clearSub() {
+    if(!sub.empty())
+        sub.clear();
 }
 
 float TextBar::getAt(int i) {
