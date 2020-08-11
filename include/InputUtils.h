@@ -1,8 +1,11 @@
 #include <iostream>
+<<<<<<< HEAD
 #include <string>
 #include <vector>
 
 using namespace std;
+=======
+>>>>>>> cef82a0441bb4e54b2908f6d21394db71e911694
 
 class Button {
     public:
@@ -21,6 +24,7 @@ class Button {
 class TextBar {
     public:
         TextBar();
+<<<<<<< HEAD
         void reText();
         float getValue();
         void split();
@@ -33,4 +37,10 @@ class TextBar {
         float value;
         vector<float> sub;
         int splitNum;
+=======
+        void reText(char* s);
+    private:
+        char* text;
+        
+>>>>>>> cef82a0441bb4e54b2908f6d21394db71e911694
 };

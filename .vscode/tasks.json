@@ -11,6 +11,7 @@
                 "${file}",
                 "-o",
                 "${fileDirname}\\build\\main.exe",
+<<<<<<< HEAD
                 "-lglu32",
                 "-lopengl32",
                 "-lfreeglut"
@@ -20,5 +21,14 @@
             },
             "problemMatcher": []
         },
+=======
+                "-lglu32", "-lopengl32", "-lfreeglut"
+                // "-lglfw3", "-lopengl32"
+            ],
+            "options": {
+                "cwd": "C:\\MinGW\\bin"
+            }
+        }
+>>>>>>> cef82a0441bb4e54b2908f6d21394db71e911694
     ]
 }

@@ -60,6 +60,7 @@ bool Button::colision(int x, int y) {
 }
 
 TextBar::TextBar() {
+<<<<<<< HEAD
     
 
     value = 0.0;
@@ -67,6 +68,8 @@ TextBar::TextBar() {
 }
 
 void TextBar::reText() {
+=======
+>>>>>>> cef82a0441bb4e54b2908f6d21394db71e911694
     glColor3f(1, 1, 1);
     glBegin(GL_QUADS);
         glVertex2f(0, 0.95);
@@ -80,6 +83,7 @@ void TextBar::reText() {
         glVertex2f(0, 0.90);
         glVertex2f(1, 0.90);
     glEnd();
+<<<<<<< HEAD
 
     glColor3f(0, 0, 0);
     glRasterPos2f(0, 0.925);
@@ -133,4 +137,13 @@ void TextBar::putChar(unsigned char key) {
 void TextBar::popChar() {
     if(texto.length() > 0)
         texto.pop_back();
+=======
+}
+void TextBar::reText(char* s) {
+    text = s;
+    glColor3f(0, 0, 0);
+    glRasterPos2f(0, 0.925);
+    while (*text)
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *text++);
+>>>>>>> cef82a0441bb4e54b2908f6d21394db71e911694
 }
