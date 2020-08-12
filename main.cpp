@@ -1,6 +1,6 @@
 //*****************************************************
 // Prática 1 - Computação Gráfica - Eng. Comp. UTFPR-TD
-// André Francisco Pastório
+// André Francisco Pastório e Pedro Baleroni
 // 
 //*****************************************************
 #include <iostream>
@@ -15,50 +15,53 @@
 using namespace std;
 
 int winh = 480, winw = 640;
-void teste(int) {}
+Principal tela = Principal(winh, winw);
+// void teste(int) {}
 
 // asdasdasdasasds asniasdk
 
-string boxValue = "";
+// string boxValue = "";
 
-Button triButton = Button("Triangulo", winw, winh, 0, teste);
-Button quaButton = Button("Quadrado", winw, winh, 55, teste);
-Button hexaButton = Button("Hexagono", winw, winh, 118, teste);
-Button apagaButton = Button("Apagar", winw, winh, 180, teste);
-Button transButton = Button("Translacao", winw, winh, 225, teste);
-Button scaleButton = Button("Escala", winw, winh, 290, teste);
-Button rotButton = Button("Rotacao", winw, winh, 330, teste);
-Button reflexButton = Button("Reflexao", winw, winh, 380, teste);
-Button cisButton = Button("Cisalhamento", winw, winh, 430, teste);
+// Button triButton = Button("Triangulo", winw, winh, 0);
+// Button quaButton = Button("Quadrado", winw, winh, 55);
+// Button hexaButton = Button("Hexagono", winw, winh, 118);
+// Button apagaButton = Button("Apagar", winw, winh, 180);
+// Button transButton = Button("Translacao", winw, winh, 225);
+// Button scaleButton = Button("Escala", winw, winh, 290);
+// Button rotButton = Button("Rotacao", winw, winh, 330);
+// Button reflexButton = Button("Reflexao", winw, winh, 380);
+// Button cisButton = Button("Cisalhamento", winw, winh, 430);
 
-TextBar barText = TextBar();
+// TextBar barText = TextBar();
 
 void Desenha(void) {
 	// Limpa a janela de visualização com a cor branca xd
 	glClearColor(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
-    // Barra
-	glColor3f(190/255.0, 190/255.0, 190/255.0);
-    glBegin(GL_QUADS);
-        glVertex2f(0, 0.95);
-        glVertex2f(1, 0.95);
-        glVertex2f(1, 1);
-        glVertex2f(0, 1);
-    glEnd();
-    // Botoes
-    triButton.reDraw();
-    quaButton.reDraw();
-    hexaButton.reDraw();
-    apagaButton.reDraw();
-    transButton.reDraw();
-    scaleButton.reDraw();
-    rotButton.reDraw();
-    reflexButton.reDraw();
-    cisButton.reDraw();
+    // // Barra
+	// glColor3f(190/255.0, 190/255.0, 190/255.0);
+    // glBegin(GL_QUADS);
+    //     glVertex2f(0, 0.95);
+    //     glVertex2f(1, 0.95);
+    //     glVertex2f(1, 1);
+    //     glVertex2f(0, 1);
+    // glEnd();
+    // // Botoes
+    // triButton.reDraw();
+    // quaButton.reDraw();
+    // hexaButton.reDraw();
+    // apagaButton.reDraw();
+    // transButton.reDraw();
+    // scaleButton.reDraw();
+    // rotButton.reDraw();
+    // reflexButton.reDraw();
+    // cisButton.reDraw();
     
-    barText.reText();
+    // barText.reText();
+
+    tela.reDraw();
     // cout << t.getValue() << endl;
-    glPointSize(1);
+    // glPointSize(1);
 
 	//Executa os comandos OpenGL 
 	glFlush();
@@ -67,43 +70,25 @@ void Desenha(void) {
 void Mouse(int rightkey, int release, int x, int y) {
     if(!rightkey) {
         if(release) {
-            if(triButton.colision(x, y)) {
-                cout << "TRI" << endl;
-            } else if (quaButton.colision(x, y)) {
-                cout << "QUAD" << endl;
-            } else if (hexaButton.colision(x, y)) {
-                cout << "HEXA" << endl;
-            } else if(apagaButton.colision(x, y)) {
-                cout << "APAGA" << endl;
-            } else if (transButton.colision(x, y)) {
-                cout << "TRANS" << endl;
-            } else if (scaleButton.colision(x, y)) {
-                cout << "SCA" << endl;
-            } else if(rotButton.colision(x, y)) {
-                cout << "ROT" << endl;
-            } else if (reflexButton.colision(x, y)) {
-                cout << "REF" << endl;
-            } else if(cisButton.colision(x, y)) {
-                cout << "CIS" << endl;
-            }
+            tela.clicked(x, y);
         }
     }
 }
 
 // Fun��o callback chamada para gerenciar eventos de teclas
-void Teclado(unsigned char key, int x, int y)
-{
-	if (key == 27)
-		exit(0);
-    else if(key == 8) {
-        barText.popChar();
-    } else if(key == 13) {
-        barText.split();
-        // Pega o selecionado e desenha // limpa sub // 
-        cout << barText.getAt(0) << "/" << barText.getAt(2) << "/" << endl;
-    } else {
-        barText.putChar(key);
-    }
+void Teclado(unsigned char key, int x, int y) {
+	tela.typed(key);
+    // if (key == 27)
+	// 	exit(0);
+    // else if(key == 8) {
+    //     barText.popChar();
+    // } else if(key == 13) {
+    //     barText.split();
+    //     // Pega o selecionado e desenha // limpa sub // 
+    //     cout << barText.getAt(0) << "/" << barText.getAt(2) << "/" << endl;
+    // } else {
+    //     barText.putChar(key);
+    // }
 
     glutPostRedisplay();
 }

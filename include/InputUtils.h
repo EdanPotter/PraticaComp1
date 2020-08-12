@@ -1,15 +1,12 @@
 #include <iostream>
-<<<<<<< HEAD
 #include <string>
 #include <vector>
 
 using namespace std;
-=======
->>>>>>> cef82a0441bb4e54b2908f6d21394db71e911694
 
 class Button {
     public:
-        Button(char *s, int w, int h, int start, void (*f)(int));
+        Button(char *s, int w, int h, int start);
         void reDraw();
         void setState(bool s);
         bool getState();
@@ -24,11 +21,10 @@ class Button {
 class TextBar {
     public:
         TextBar();
-<<<<<<< HEAD
         void reText();
         float getValue();
         void split();
-        void clearSub();
+        void clear();
         float getAt(int i);
         void putChar(unsigned char key);
         void popChar();
@@ -37,10 +33,20 @@ class TextBar {
         float value;
         vector<float> sub;
         int splitNum;
-=======
-        void reText(char* s);
+};
+
+class Principal {
+    public:
+        Principal(int winh, int winw);
+        void reDraw();
+        int getActiveButton();
+        Button getButtonAt(int i);
+        TextBar getBarra();
+        void clicked(int x, int y);
+        void typed(unsigned char key);
     private:
-        char* text;
-        
->>>>>>> cef82a0441bb4e54b2908f6d21394db71e911694
+        vector<Button> buttons;
+        TextBar barra;
+        int largura, altura;
+        // vector<FormaGeometrica> desenhos;
 };
