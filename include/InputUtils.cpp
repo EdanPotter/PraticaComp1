@@ -104,6 +104,14 @@ void Principal::reDraw() {
         }
         k++;
     }
+    float *teste;
+    teste = map(18, 16, true);
+    printf("%f OIs %f\n", teste[0], teste[1]);
+    glPointSize(5.0f);
+    glBegin(GL_POINTS);
+        glVertex2f(teste[0], teste[1]);
+    glEnd();
+    // cout << teste[0] << " OI " << teste[1] << endl;
 }
 
 int Principal::getActiveButton() {
@@ -133,6 +141,23 @@ void Principal::typed(unsigned char key) {
         barra.putChar(key);
     }
 }
+// map converte os sistemas de coordenadas
+// isAbs define o sistema de coordenadas
+float* Principal::map(float x, float y, bool isAbs) {
+    float *aux = new float[2];
+    aux[0] = x;
+    aux[1] = y;
+    if(isAbs) {
+        aux[0] = aux[0]*0.9/18+0.05;
+        aux[1] = aux[1]*(-0.8)/16+0.85;
+    } else {
+        aux[0] = (aux[0]-0.05)*(18)/(0.95-0.05);
+        aux[1] = (aux[1]-0.85)*(16)/(0.05-0.85);
+    }
+    return aux;
+    //return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 Button::Button(char *s, int w, int h, int start) {
     displayText = s;
     state = false;

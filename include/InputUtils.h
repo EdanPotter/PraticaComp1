@@ -44,6 +44,7 @@ class Principal {
         TextBar getBarra();
         void clicked(int x, int y);
         void typed(unsigned char key);
+        float* map(float x, float y, bool isAbs);
     private:
         vector<Button> buttons;
         TextBar barra;

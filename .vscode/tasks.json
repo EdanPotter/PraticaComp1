@@ -7,7 +7,7 @@
             "command": "C:\\MinGW\\bin\\g++.exe",
             "args": [
                 "-g",
-                "${fileDirname}\\include\\**.cpp",
+                "${fileDirname}\\include/**.cpp",
                 "${file}",
                 "-o",
                 "${fileDirname}\\build\\main.exe",
