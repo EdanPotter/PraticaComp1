@@ -1,18 +1,22 @@
+#ifndef InputUtils_h
+#define InputUtils_h
+
 #include <iostream>
 #include <string>
 #include <vector>
+#include "FormaGeometrica.h"
 
 using namespace std;
 
 class Button {
     public:
-        Button(char *s, int w, int h, int start);
+        Button(const char *s, int w, int h, int start);
         void reDraw();
         void setState(bool s);
         bool getState();
         bool colision(int x, int y);
     private:
-        char* displayText;
+        const char* displayText;
         bool state;
         int boundaries[2];
         int wwidth, wheigth, begin;
@@ -28,6 +32,8 @@ class TextBar {
         float getAt(int i);
         void putChar(unsigned char key);
         void popChar();
+        void addTexto(string t);
+        int getSubCount();
     private:
         string texto;
         float value;
@@ -45,9 +51,15 @@ class Principal {
         void clicked(int x, int y);
         void typed(unsigned char key);
         float* map(float x, float y, bool isAbs);
+        float mapX(float x, bool isAbs);
+        float mapY(float y, bool isAbs);
+        float map(float aresta);
+        void translada(int i, float x, float y);
     private:
         vector<Button> buttons;
         TextBar barra;
         int largura, altura;
-        // vector<FormaGeometrica> desenhos;
+        vector<FormaGeometrica> desenhos;
 };
+
+#endif
