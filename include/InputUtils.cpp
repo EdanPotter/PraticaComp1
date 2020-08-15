@@ -130,7 +130,39 @@ int Principal::getActiveButton() {
 // Callback de clique
 void Principal::clicked(int x, int y) {
     for(int i=0; i<buttons.size(); i++) {
-        buttons.at(i).colision(x, y);
+        if(buttons.at(i).colision(x, y)) {
+            switch (i) {
+                case 0:
+                    printf("Triangulo: [x y aresta] ou [x1 y1 x2 y2 x3 y3] ENTER\n");
+                    break;
+                case 1:
+                    printf("Quadrado: [x y aresta] ou [x1 y1 x2 y2 x3 y3 x4 y4] ENTER\n");
+                    break;
+                case 2:
+                    printf("Hexagono: [x y aresta] ou [x1 y1 x2 y2 x3 y3 x4 y4 x5 y5 x6 y6] ENTER\n");
+                    break;
+                case 3:
+                    printf("Apaga: ENTER\n");
+                    break;
+                case 4:
+                    printf("Translacao: [idObjeto x y] ENTER\n");
+                    break;
+                case 5:
+                    printf("Escala: [idObjeto x y] ou [idObjeto x y refX refY] ENTER\n");
+                    break;
+                case 6:
+                    printf("Rotacao: [idObjeto angulo] ou [idObjeto angulo refX refY] ENTER\n");
+                    break;
+                case 7:
+                    printf("Reflexao: [idObjeto emX(1 ou 0) emY(1 ou 0)] ou [idObjeto emX(1 ou 0) emY(1 ou 0) refX refY] ENTER\n");
+                    break;
+                case 8:
+                    printf("Cisalhamento: [idObjeto x y] ou [idObjeto x y refX refY] ENTER\n");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     float auxx = x, auxy = y;
     auxx = mapX(auxx, false);
@@ -159,8 +191,10 @@ void Principal::typed(unsigned char key) {
                 float tv[3][2] = {{mapX(barra.getAt(0), true), mapY(barra.getAt(1), true)},
                                   {mapX(barra.getAt(2), true), mapY(barra.getAt(3), true)},
                                   {mapX(barra.getAt(4), true), mapY(barra.getAt(5), true)}};
-                Triangulo t = Triangulo(tv);
-                desenhos.push_back(t);
+                if(valida(tv, 3)) {
+                    Triangulo t = Triangulo(tv);
+                    desenhos.push_back(t);
+                }
             }
         } else if(active == 1) {
             if(barra.getSubCount() == 3) {
@@ -171,8 +205,10 @@ void Principal::typed(unsigned char key) {
                                   {mapX(barra.getAt(2), true), mapY(barra.getAt(3), true)},
                                   {mapX(barra.getAt(4), true), mapY(barra.getAt(5), true)},
                                   {mapX(barra.getAt(6), true), mapY(barra.getAt(7), true)}};
-                Quadrado q = Quadrado(qv);
-                desenhos.push_back(q);
+                if(valida(qv, 4)) {
+                    Quadrado q = Quadrado(qv);
+                    desenhos.push_back(q);
+                }
             }
         } else if(active == 2) {
             if(barra.getSubCount() == 3) {
@@ -185,8 +221,10 @@ void Principal::typed(unsigned char key) {
                                   {mapX(barra.getAt(6), true), mapY(barra.getAt(7), true)},
                                   {mapX(barra.getAt(8), true), mapY(barra.getAt(9), true)},
                                   {mapX(barra.getAt(10), true), mapY(barra.getAt(11), true)}};
-                Hexagono h = Hexagono(hv);
-                desenhos.push_back(h);
+                if(valida(hv, 6)) {
+                    Hexagono h = Hexagono(hv);
+                    desenhos.push_back(h);
+                }
             }
         } else if(active == 3) {
             if(desenhos.size()>0)
@@ -246,6 +284,14 @@ float Principal::mapX(float x, bool isAbs) {
     }
     else {
         aux = x;
+        if (aux > 18.0) {
+            printf("Coordenada X maior que limites, ajustado para 18\n");
+            aux = 18.0;
+        }
+        else if (aux < -18.0) {
+            printf("Coordenada X menor que limites, ajustado para 18\n");
+            aux = -18.0;
+        }
         // aux = aux*0.9/18+0.05;
         aux = (aux+18)*0.9/36+0.05;
     }
@@ -260,6 +306,14 @@ float Principal::mapY(float y, bool isAbs) {
     }
     else {
         aux = y;
+        if(aux > 16.0) {
+            printf("Coordenada Y maior que limites, ajustado para 16\n");
+            aux = 16.0;
+        }
+        else if(aux < -16.0) {
+            printf("Coordenada Y menor que limites, ajustado para -16\n");
+            aux = -16.0;
+        }
         // aux = aux*(0.8)/16+0.15;
         aux = (aux+16)*(0.8)/32+0.15;
     }
@@ -270,7 +324,18 @@ float Principal::map(float aresta) {
     return aresta/40;
 }
 
-
+bool Principal::valida(float v[][2], int qt) {
+    float auxx=-20, auxy=-20;
+    for(int i=0; i<qt; i++) {
+        if(auxx == v[i][0] && auxy == v[i][1]) {
+            printf("Pontos iguais... Pfvr tente novamente...\n");
+            return false;
+        }
+        auxx = v[i][0];
+        auxy = v[i][1];
+    }
+    return true;
+}
 
 Button::Button(const char *s, int w, int h, int start) {
     displayText = s;

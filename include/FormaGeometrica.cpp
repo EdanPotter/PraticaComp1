@@ -288,7 +288,7 @@ bool FormaGeometrica::getCisActive() {
 }
 // Vertices
 Quadrado::Quadrado(float v[][2]):FormaGeometrica(4) {
-    printf("OI %f\n", v[0][0]);
+    // printf("OI %f\n", v[0][0]);
     setVertices(v);
 }
 // Centro + aresta

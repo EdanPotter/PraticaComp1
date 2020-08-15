@@ -54,6 +54,7 @@ class Principal {
         float mapX(float x, bool isAbs);
         float mapY(float y, bool isAbs);
         float map(float aresta);
+        bool valida(float v[][2], int qt);
     private:
         vector<Button> buttons;
         TextBar barra;
