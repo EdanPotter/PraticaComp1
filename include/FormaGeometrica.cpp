@@ -20,6 +20,8 @@ FormaGeometrica::FormaGeometrica(int qtVertices, float v[][2]) {
     this->transY = 0.0;
     this->scaleX = 1.0;
     this->scaleY = 1.0;
+    this->reflexX = 1.0;
+    this->reflexY = 1.0;
     this->centerX = 0.0;
     this->centerY = 0.0;
     this->angle = 0.0;
@@ -33,6 +35,10 @@ FormaGeometrica::FormaGeometrica(int qtVertices, float v[][2]) {
     mCis[0][1] = 0.0; mCis[1][1] = 1.0;  mCis[2][1] = 0.0;  mCis[3][1] = 0.0;
     mCis[0][2] = 0.0; mCis[1][2] = 0.0;  mCis[2][2] = 1.0;  mCis[3][2] = 0.0;
     mCis[0][3] = 0.0; mCis[1][3] = 0.0;  mCis[2][3] = 0.0;  mCis[3][3] = 1.0;
+    mT[0][0] = 1.0; mT[1][0] = 0.0;  mT[2][0] = 0.0;  mT[3][0] = 0.0;
+    mT[0][1] = 0.0; mT[1][1] = 1.0;  mT[2][1] = 0.0;  mT[3][1] = 0.0;
+    mT[0][2] = 0.0; mT[1][2] = 0.0;  mT[2][2] = 1.0;  mT[3][2] = 0.0;
+    mT[0][3] = 0.0; mT[1][3] = 0.0;  mT[2][3] = 0.0;  mT[3][3] = 1.0;
 }
 FormaGeometrica::FormaGeometrica(int qtVertices, float x, float y) {
     this->qtVertices = qtVertices;
@@ -40,6 +46,8 @@ FormaGeometrica::FormaGeometrica(int qtVertices, float x, float y) {
     this->transY = 0.0;
     this->scaleX = 1.0;
     this->scaleY = 1.0;
+    this->reflexX = 1.0;
+    this->reflexY = 1.0;
     this->centerX = x;
     this->centerY = y;
     this->angle = 0.0;
@@ -52,6 +60,10 @@ FormaGeometrica::FormaGeometrica(int qtVertices, float x, float y) {
     mCis[0][1] = 0.0; mCis[1][1] = 1.0;  mCis[2][1] = 0.0;  mCis[3][1] = 0.0;
     mCis[0][2] = 0.0; mCis[1][2] = 0.0;  mCis[2][2] = 1.0;  mCis[3][2] = 0.0;
     mCis[0][3] = 0.0; mCis[1][3] = 0.0;  mCis[2][3] = 0.0;  mCis[3][3] = 1.0;
+    mT[0][0] = 1.0; mT[1][0] = 0.0;  mT[2][0] = 0.0;  mT[3][0] = 0.0;
+    mT[0][1] = 0.0; mT[1][1] = 1.0;  mT[2][1] = 0.0;  mT[3][1] = 0.0;
+    mT[0][2] = 0.0; mT[1][2] = 0.0;  mT[2][2] = 1.0;  mT[3][2] = 0.0;
+    mT[0][3] = 0.0; mT[1][3] = 0.0;  mT[2][3] = 0.0;  mT[3][3] = 1.0;
 }
 FormaGeometrica::FormaGeometrica(int qtVertices) {
     this->qtVertices = qtVertices;
@@ -59,6 +71,8 @@ FormaGeometrica::FormaGeometrica(int qtVertices) {
     this->transY = 0.0;
     this->scaleX = 1.0;
     this->scaleY = 1.0;
+    this->reflexX = 1.0;
+    this->reflexY = 1.0;
     this->centerX = 0.0;
     this->centerY = 0.0;
     this->angle = 0.0;
@@ -71,15 +85,65 @@ FormaGeometrica::FormaGeometrica(int qtVertices) {
     mCis[0][1] = 0.0; mCis[1][1] = 1.0;  mCis[2][1] = 0.0;  mCis[3][1] = 0.0;
     mCis[0][2] = 0.0; mCis[1][2] = 0.0;  mCis[2][2] = 1.0;  mCis[3][2] = 0.0;
     mCis[0][3] = 0.0; mCis[1][3] = 0.0;  mCis[2][3] = 0.0;  mCis[3][3] = 1.0;
+    mT[0][0] = 1.0; mT[1][0] = 0.0;  mT[2][0] = 0.0;  mT[3][0] = 0.0;
+    mT[0][1] = 0.0; mT[1][1] = 1.0;  mT[2][1] = 0.0;  mT[3][1] = 0.0;
+    mT[0][2] = 0.0; mT[1][2] = 0.0;  mT[2][2] = 1.0;  mT[3][2] = 0.0;
+    mT[0][3] = 0.0; mT[1][3] = 0.0;  mT[2][3] = 0.0;  mT[3][3] = 1.0;
 }
 void FormaGeometrica::Desenha() {
-    printf("aaa %d\n", this->v.size());
-    printf("qt: %d", this->qtVertices);
+    // printf("aaa %d\n", this->v.size());
+    // printf("qt: %d", this->qtVertices);
+    // float m[4][4];
+    // glGetFloatv(GL_MODELVIEW_MATRIX, &m[0][0]);
+    // printf("moidel %f\n", m[0][0]);
+    glPushMatrix();
+    if(trans) {
+        glTranslatef(transX, transY, 0);
+        trans = false;
+        // centerX += transX;
+        // centerY += transY;
+        // Desenha();
+    }
+    if(reflex) { // TODO: Reflext em x E y
+        glTranslatef(centerX, centerY, 0);
+        // if (refX == 0)
+        //     glScalef(reflexX, 1, 0);
+        // else
+        glScalef(reflexX, reflexY, 0);
+        glScalef(1, 1, 0);
+        glTranslatef(-centerX, -centerY, 0);
+        reflex = false;
+    }
+    if(cis) {
+        glTranslatef(centerX, centerY, 0);
+        glMultMatrixf(&mCis[0][0]);
+        glTranslatef(-centerX, -centerY, 0);
+        cis = false;
+    }
+    if(scale) {
+        glTranslatef(centerX, centerY, 0);
+        glScalef(scaleX, scaleY, 0);
+        glScalef(1, 1, 0);
+        glTranslatef(-centerX, -centerY, 0);
+        scale = false;
+    }
+    if(rota) {
+        glTranslatef(centerX, centerY, 0);
+        glRotatef(angle, 0, 0, 1);
+        // glRotatef(-angle, 0, 0, 1);
+        // glScalef(1, 1, 0);
+        glTranslatef(-(centerX), -(centerY), 0);
+        rota = false;
+    }
+    glMultMatrixf(&mT[0][0]);
     glBegin(GL_POLYGON);
         for(int i=0; i<qtVertices; i++) {
             glVertex2f(v.at(i).at(0), v.at(i).at(1));
         }
     glEnd();
+    glGetFloatv(GL_MODELVIEW_MATRIX, &mT[0][0]);
+    // glScalef(1, 1, 0);
+    glPopMatrix();
 }
 int FormaGeometrica::getQtVertices(){
     return qtVertices;
@@ -94,8 +158,10 @@ void FormaGeometrica::setVertices(float v[][2]) {
     }
 }
 void FormaGeometrica::setTranslada(float x, float y) {
-    this->transX += x;
-    this->transY += y;
+    this->transX = x;
+    this->transY = y;
+    // centerX += transX;
+    // centerY += transY;
     trans = true;
 }
 void FormaGeometrica::transladaDraw() {
@@ -109,20 +175,19 @@ bool FormaGeometrica::getTransladaActive() {
 }
 void FormaGeometrica::setScale(float x, float y) {
     scale = true;
-    scaleX *= x;
-    scaleY *= y;
+    scaleX = x;
+    scaleY = y;
     // transX = -x;
     // transY = -y;
 }
 void FormaGeometrica::setScale(float x, float y, float cx, float cy) {
     scale = true;
-    scaleX *= x;
-    scaleY *= y;
+    scaleX = x;
+    scaleY = y;
     centerX = cx;
     centerY = cy;
 }
 void FormaGeometrica::scaleDraw() {
-    printf("center %f - %f\n", centerX, centerY);
     glPushMatrix();
     glTranslatef(centerX, centerY, 0);
     glScalef(scaleX, scaleY, 0);
@@ -135,15 +200,17 @@ bool FormaGeometrica::getScaleActive() {
     return scale;
 }
 
-void FormaGeometrica::setRota(float angle, float x, float y) {
+void FormaGeometrica::setRota(float angle) {
     rota = true;
     this->angle = angle;
+    // centerX += transX;
+    // centerY += transY;
 }
-void FormaGeometrica::setRota(float angle, float x, float y, float cx, float cy) {
+void FormaGeometrica::setRota(float angle, float cx, float cy) {
     rota = true;
     this->angle = angle;
-    rotaX = x;
-    rotaY = y;
+    // rotaX = x;
+    // rotaY = y;
     centerX = cx;
     centerY = cy;
 }
@@ -160,23 +227,35 @@ bool FormaGeometrica::getRotaActive() {
     return rota;
 }
 
-void FormaGeometrica::setReflex(float xouy) {
+void FormaGeometrica::setReflex(float rx, float ry) {
+    refX = rx;
+    refY = ry;
+    if (refX == 1)
+        reflexX = -1;
+    if (refY == 1)
+        reflexY = -1;
+
     reflex = true;
-    ref = xouy;
 }
-void FormaGeometrica::setReflex(float xouy, float x, float y) {
+void FormaGeometrica::setReflex(float rx, float ry, float x, float y) {
+    refX = rx;
+    refY = ry;
+    if(refX == 1)
+        reflexX = -1;
+    if(refY == 1)
+        reflexY = -1;
     reflex = true;
-    ref = xouy;
     centerX = x;
     centerY = y;
 }
 void FormaGeometrica::reflexDraw() {
     glPushMatrix();
     glTranslatef(centerX, centerY, 0);
-    if(ref == 0)
-        glScalef(-1, 1, 0);
-    else
-        glScalef(1, -1, 0);
+    // if(ref == 0)
+    //     glScalef(-1, 1, 0);
+    // else
+    //     glScalef(1, -1, 0);
+    glScalef(reflexX, reflexY, 0);
     glTranslatef(-centerX, -centerY, 0);
     Desenha();
     glPopMatrix();

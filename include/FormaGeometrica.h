@@ -27,11 +27,11 @@ class FormaGeometrica {
         void setScale(float x, float y);
         void setScale(float x, float y, float cx, float cy);
         void scaleDraw();
-        void setRota(float angle, float x, float y);
-        void setRota(float angle, float x, float y, float cx, float cy);
+        void setRota(float angle);
+        void setRota(float angle, float cx, float cy);
         void rotaDraw();
-        void setReflex(float xouy);
-        void setReflex(float xouy, float x, float y);
+        void setReflex(float rx, float ry);
+        void setReflex(float rx, float ry, float x, float y);
         void reflexDraw();
         void setCis(float x, float y);
         void setCis(float x, float y, float cx, float cy);
@@ -52,11 +52,13 @@ class FormaGeometrica {
         float transX, transY;
         float scaleX, scaleY;
         float rotaX, rotaY;
-        int ref;
+        float reflexX, reflexY;
+        int refX, refY;
         bool trans, scale, rota, reflex, cis;
         float centerX, centerY;
         float angle;
         float mCis[4][4];
+        float mT[4][4];
 };
 
 class Quadrado : public FormaGeometrica {

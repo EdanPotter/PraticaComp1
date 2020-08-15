@@ -116,20 +116,31 @@ void Principal::reDraw() {
     }
     // Desenha formas
     for(int i=0; i<desenhos.size(); i++) {
-        if(desenhos.at(i).getTransladaActive()) {
-            desenhos.at(i).transladaDraw();
-        } else if(desenhos.at(i).getScaleActive()) {
-            desenhos.at(i).scaleDraw();
-        } else if(desenhos.at(i).getRotaActive()) {
-            desenhos.at(i).rotaDraw();
-        } else if(desenhos.at(i).getReflexActive()) {
-            desenhos.at(i).reflexDraw();
-        } else if(desenhos.at(i).getCisActive()) {
-            desenhos.at(i).cisDraw();
-        }
-        else {
-            desenhos.at(i).Desenha();
-        }
+        // bool flag = false;
+        // if(desenhos.at(i).getTransladaActive()) {
+        //     desenhos.at(i).transladaDraw();
+        //     flag = true;
+        // }
+        // if(desenhos.at(i).getScaleActive()) {
+        //     desenhos.at(i).scaleDraw();
+        //     flag = true;
+        // }
+        // if(desenhos.at(i).getRotaActive()) {
+        //     desenhos.at(i).rotaDraw();
+        //     flag = true;
+        // } 
+        // if(desenhos.at(i).getReflexActive()) {
+        //     desenhos.at(i).reflexDraw();
+        //     flag = true;
+        // }
+        // if(desenhos.at(i).getCisActive()) {
+        //     desenhos.at(i).cisDraw();
+        //     flag = true;
+        // }
+        // if(!flag) {
+        //     desenhos.at(i).Desenha();
+        // }
+        desenhos.at(i).Desenha();
     }
 }
 // Retorna o indice do primeiro botao ativo
@@ -214,15 +225,15 @@ void Principal::typed(unsigned char key) {
             else if(barra.getSubCount() == 5)
                 desenhos.at(barra.getAt(0)).setScale(barra.getAt(1), barra.getAt(2), mapX(barra.getAt(3), true), mapY(barra.getAt(4), true));
         } else if(active == 6) {
-            if (barra.getSubCount() == 4)
-                desenhos.at(barra.getAt(0)).setRota(barra.getAt(1), barra.getAt(2), barra.getAt(3));
-            else if (barra.getSubCount() == 6)
-                desenhos.at(barra.getAt(0)).setRota(barra.getAt(1), barra.getAt(2), barra.getAt(3), mapX(barra.getAt(4), true), mapY(barra.getAt(5), true));
-        } else if(active == 7) {
             if (barra.getSubCount() == 2)
-                desenhos.at(barra.getAt(0)).setReflex(barra.getAt(1));
+                desenhos.at(barra.getAt(0)).setRota(barra.getAt(1));
             else if (barra.getSubCount() == 4)
-                desenhos.at(barra.getAt(0)).setReflex(barra.getAt(1), mapX(barra.getAt(2), true), mapY(barra.getAt(3), true));
+                desenhos.at(barra.getAt(0)).setRota(barra.getAt(1), mapX(barra.getAt(2), true), mapY(barra.getAt(3), true));
+        } else if(active == 7) {
+            if (barra.getSubCount() == 3)
+                desenhos.at(barra.getAt(0)).setReflex(barra.getAt(1), barra.getAt(2));
+            else if (barra.getSubCount() == 5)
+                desenhos.at(barra.getAt(0)).setReflex(barra.getAt(1), barra.getAt(2) , mapX(barra.getAt(3), true), mapY(barra.getAt(4), true));
         } else if(active == 8) {
             if (barra.getSubCount() == 3)
                 desenhos.at(barra.getAt(0)).setCis(barra.getAt(1), barra.getAt(2));
