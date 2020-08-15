@@ -43,6 +43,11 @@ Principal::Principal(int winh, int winw) {
 Redesenha elementos
 */
 void Principal::reDraw() {
+    // Desenha formas
+    glColor3f(0.0, 0.0, 1.0);
+    for(int i=0; i<desenhos.size(); i++) {
+        desenhos.at(i).Desenha();
+    }
     // Barra
     glColor3f(190 / 255.0, 190 / 255.0, 190 / 255.0);
     glBegin(GL_QUADS);
@@ -114,10 +119,11 @@ void Principal::reDraw() {
         }
         k++;
     }
-    // Desenha formas
-    for(int i=0; i<desenhos.size(); i++) {
-        desenhos.at(i).Desenha();
-    }
+    // // Desenha formas
+    // glColor3f(0.0, 0.0, 1.0);
+    // for(int i=0; i<desenhos.size(); i++) {
+    //     desenhos.at(i).Desenha();
+    // }
 }
 // Retorna o indice do primeiro botao ativo
 int Principal::getActiveButton() {
