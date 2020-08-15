@@ -104,7 +104,7 @@ void FormaGeometrica::Desenha() {
         // centerY += transY;
         // Desenha();
     }
-    if(reflex) { // TODO: Reflext em x E y
+    if(reflex) {
         glTranslatef(centerX, centerY, 0);
         // if (refX == 0)
         //     glScalef(reflexX, 1, 0);

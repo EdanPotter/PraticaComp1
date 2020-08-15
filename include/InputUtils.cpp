@@ -59,30 +59,30 @@ void Principal::reDraw() {
     glColor3f(1, 0, 0);
     //Eixos
     glBegin(GL_LINES); //x
-        glVertex2f(0.05, 0.15);
-        glVertex2f(0.95, 0.15);
+        glVertex2f(0.05, 0.55);
+        glVertex2f(0.95, 0.55);
     glEnd();
     glBegin(GL_LINES); //y
-        glVertex2f(0.05, 0.15);
-        glVertex2f(0.05, 0.95);
+        glVertex2f(0.5, 0.15);
+        glVertex2f(0.5, 0.95);
     glEnd();
     //Marcações
     glBegin(GL_LINES);
-        for(float j=0.1; j<0.95; j+=0.05) {
-            glVertex2f(j, 0.14);
-            glVertex2f(j, 0.16);
+        for(float j=0.05; j<0.95; j+=0.025) {
+            glVertex2f(j, 0.54);
+            glVertex2f(j, 0.56);
         }
     glEnd();
     glBegin(GL_LINES);
-        for(float j=0.2; j<0.95; j+=0.05) {
-            glVertex2f(0.04, j);
-            glVertex2f(0.06, j);
+        for(float j=0.15; j<0.95; j+=0.025) {
+            glVertex2f(0.49, j);
+            glVertex2f(0.51, j);
         }
     glEnd();
     // Desenha números
-    int k = 0;
-    for(float j=0.1; j<0.95; j+=0.05) {
-        glRasterPos2f(j-0.05, 0.13);
+    int k = -18;
+    for(float j=0.05; j<0.95; j+=0.025) {
+        glRasterPos2f(j, 0.53);
         int aux = k;
         int aux2 = k;
         if(aux == 0)
@@ -97,9 +97,9 @@ void Principal::reDraw() {
         }
         k++;
     }
-    k = 0;
-    for(float j=0.1; j<0.9; j+=0.05) {
-        glRasterPos2f(0.01, j+0.05);
+    k = 1;
+    for(float j=0.55; j<0.925; j+=0.025) {
+        glRasterPos2f(0.46, j+0.025);
         int aux = k;
         int aux2 = k;
         if(aux == 0)
@@ -116,30 +116,6 @@ void Principal::reDraw() {
     }
     // Desenha formas
     for(int i=0; i<desenhos.size(); i++) {
-        // bool flag = false;
-        // if(desenhos.at(i).getTransladaActive()) {
-        //     desenhos.at(i).transladaDraw();
-        //     flag = true;
-        // }
-        // if(desenhos.at(i).getScaleActive()) {
-        //     desenhos.at(i).scaleDraw();
-        //     flag = true;
-        // }
-        // if(desenhos.at(i).getRotaActive()) {
-        //     desenhos.at(i).rotaDraw();
-        //     flag = true;
-        // } 
-        // if(desenhos.at(i).getReflexActive()) {
-        //     desenhos.at(i).reflexDraw();
-        //     flag = true;
-        // }
-        // if(desenhos.at(i).getCisActive()) {
-        //     desenhos.at(i).cisDraw();
-        //     flag = true;
-        // }
-        // if(!flag) {
-        //     desenhos.at(i).Desenha();
-        // }
         desenhos.at(i).Desenha();
     }
 }
@@ -159,8 +135,7 @@ void Principal::clicked(int x, int y) {
     float auxx = x, auxy = y;
     auxx = mapX(auxx, false);
     auxy = mapY(auxy, false);
-    printf("click %d - %d", x, y);
-    if(auxy > 0 && auxx > 0) {
+    if(auxy >= -16 && auxy <= 16 && auxx >= -18 && auxx <= 18) {
         string aux = to_string(auxx);
         aux.append(" ");
         aux.append(to_string(auxy));
@@ -266,11 +241,13 @@ float Principal::mapX(float x, bool isAbs) {
     float aux;
     if(!isAbs) {
         aux = x/(float)this->largura;
-        aux = (aux-0.05)*(18)/(0.95-0.05);
+        // aux = (aux-0.05)*(18)/(0.95-0.05);
+        aux = (aux-0.05)*(36)/(0.95-0.05)-18;
     }
     else {
         aux = x;
-        aux = aux*0.9/18+0.05;
+        // aux = aux*0.9/18+0.05;
+        aux = (aux+18)*0.9/36+0.05;
     }
     return aux;
 }
@@ -278,22 +255,21 @@ float Principal::mapY(float y, bool isAbs) {
     float aux;
     if(!isAbs) {
         aux = 1-y/(float)this->altura;
-        aux = (aux-0.15)*(16)/(0.95-0.15);
+        // aux = (aux-0.15)*(16)/(0.95-0.15);
+        aux = (aux-0.15)*(32)/(0.95-0.15)-16;
     }
     else {
         aux = y;
-        aux = aux*(0.8)/16+0.15;
+        // aux = aux*(0.8)/16+0.15;
+        aux = (aux+16)*(0.8)/32+0.15;
     }
     return aux;
 }
 // Proporção entre desenho e sistema de coordenadas
 float Principal::map(float aresta) {
-    return aresta/20;
+    return aresta/40;
 }
 
-void Principal::translada(int i, float x, float y) {
-
-}
 
 
 Button::Button(const char *s, int w, int h, int start) {
@@ -344,7 +320,6 @@ bool Button::getState() {
 }
 // Ativa o botão quando colisao
 bool Button::colision(int x, int y) {
-    printf("b %d - %d - %d\n", boundaries[0], boundaries[1], x);
     if(x > boundaries[0] && x < boundaries[1] && y < wheigth && y > 0.95*wheigth) {
         state = !state;
         return true;
@@ -366,7 +341,7 @@ void TextBar::reText() {
         glVertex2f(1, 0.1);
         glVertex2f(0, 0.1);
     glEnd();
-    glColor3f(0, 0, 0);
+    glColor3f(190/255.0, 190/255.0, 190/255.0);
     glLineWidth(2);
     glBegin(GL_LINES);
         glVertex2f(0, 0.1);
