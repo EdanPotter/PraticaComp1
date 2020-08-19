@@ -50,8 +50,7 @@ void Inicializa(void) {
 	gluOrtho2D(0, 1, 1, 0);
 	glMatrixMode(GL_MODELVIEW);
 }
-void reshape(int width, int height)
-{
+void reshape(int width, int height) {
     winw = width;
     winh = height;
     glViewport(0, 0, width, height);
@@ -91,7 +90,3 @@ int main(int argc, char **argv)
  
 	return 0;
 }
-
-void DesenhaTriangulo() {}
-void DesenhaQuadrado() {}
-void DesenhaHexagono() {}

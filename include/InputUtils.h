@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "FormaGeometrica.h"
+#include "Linha.h"
 
 using namespace std;
 
@@ -60,6 +61,8 @@ class Principal {
         TextBar barra;
         int largura, altura;
         vector<FormaGeometrica> desenhos;
+        vector<Linha> linhas;
+        float corRGB[3] = {0.0, 0.0, 0.0};
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include "InputUtils.h"
 #include "FormaGeometrica.h"
+#include "Linha.h"
 using namespace std;
 /*
 Constrói tela principal e botões
@@ -18,7 +19,8 @@ Principal::Principal(int winh, int winw) {
     Button rotButton = Button("Rotacao", winw, winh, 330);
     Button reflexButton = Button("Reflexao", winw, winh, 380);
     Button cisButton = Button("Cisalhamento", winw, winh, 430);
-    
+    Button linhaButton = Button("Linha", winw, winh, 510);
+
     buttons.push_back(triButton);
     buttons.push_back(quaButton);
     buttons.push_back(hexaButton);
@@ -28,6 +30,7 @@ Principal::Principal(int winh, int winw) {
     buttons.push_back(rotButton);
     buttons.push_back(reflexButton);
     buttons.push_back(cisButton);
+    buttons.push_back(linhaButton);
 
     barra = TextBar();
 
@@ -48,6 +51,39 @@ void Principal::reDraw() {
     for(int i=0; i<desenhos.size(); i++) {
         desenhos.at(i).Desenha();
     }
+
+    for(int i=0; i<linhas.size(); i++) {
+        glColor3f(corRGB[0], corRGB[1], corRGB[2]);
+        linhas.at(i).Desenha();
+        corRGB[0]+=0.1;
+        if(corRGB[0] > 1.0)
+            corRGB[0] = 0.0;
+        corRGB[1]+=0.2;
+        if(corRGB[1] > 1.0)
+            corRGB[1] = 0.0;
+        corRGB[2]+=0.3;
+        if(corRGB[2] > 1.0)
+            corRGB[2] = 0.0;
+    }
+    corRGB[0] = 0.0;
+    corRGB[1] = 0.0;
+    corRGB[2] = 0.0;
+    // float pontos[5][3] = {{mapX(0, true), mapY(10, true), 0.0},
+    //                       {mapX(2, true), mapY(2, true), 0.0},
+    //                       {mapX(6, true), mapY(6, true), 0.0},
+    //                       {mapX(8, true), mapY(2, true), 0.0},
+    //                       {mapX(9, true), mapY(9, true), 0.0}};
+
+    // glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 5, &pontos[0][0]);
+    // // Ativa geração de coordenadas
+    // glEnable(GL_MAP1_VERTEX_3);
+    // float delta = 1.0 / 10.0;
+    // // Traça a curva
+    // glBegin(GL_LINE_STRIP);
+    // for (float f = 0; f <= 1.01; f += delta)
+    //     glEvalCoord1f(f);
+    // glEnd();
+
     // Barra
     glColor3f(190 / 255.0, 190 / 255.0, 190 / 255.0);
     glBegin(GL_QUADS);
@@ -165,6 +201,8 @@ void Principal::clicked(int x, int y) {
                 case 8:
                     printf("Cisalhamento: [idObjeto x y] ou [idObjeto x y refX refY] ENTER\n");
                     break;
+                case 9:
+                    printf("Linha: [x1 y1 ... xn yn(n <= 9) precisao] ENTER\n");
                 default:
                     break;
             }
@@ -235,6 +273,8 @@ void Principal::typed(unsigned char key) {
         } else if(active == 3) {
             if(desenhos.size()>0)
                 desenhos.clear();
+            if(linhas.size()>0)
+                linhas.clear();
         } else if(active == 4) {
             if(barra.getSubCount() == 3)
                 desenhos.at(barra.getAt(0)).setTranslada(map(barra.getAt(1)), map(barra.getAt(2)));
@@ -258,6 +298,27 @@ void Principal::typed(unsigned char key) {
                 desenhos.at(barra.getAt(0)).setCis(barra.getAt(1), barra.getAt(2));
             else if (barra.getSubCount() == 5)
                 desenhos.at(barra.getAt(0)).setCis(barra.getAt(1), barra.getAt(2), mapX(barra.getAt(3), true), mapY(barra.getAt(4), true));
+        } else if(active == 9) {
+            int count = (barra.getSubCount()-1)/2;
+            if(count >= 3) {
+                // float lv[count][3];
+                vector<vector<float>> lv;
+                
+                int i = 0;
+                for(; i<count; i++) {
+                    vector<float> aux;
+                    aux.push_back(mapX(barra.getAt(0+i*2), true));
+                    aux.push_back(mapY(barra.getAt(1+i*2), true));
+                    lv.push_back(aux);
+                    // lv[i][0] = mapX(barra.getAt(0+i*2), true);
+                    // lv[i][1] = mapY(barra.getAt(1+i*2), true);
+                    // lv[i][2] = 0.0;
+                }
+                printf("Count: %d\n", count);
+                Linha l = Linha(count, lv, (int)barra.getAt(i*2));
+                linhas.push_back(l);
+                // system("PAUSE");
+            }
         }
 
         barra.clear();
@@ -427,7 +488,7 @@ void TextBar::reText() {
         glRasterPos2f(0, 0.075);
         for(int i = 0; i < texto.length(); i++)
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, texto.at(i));
-        value = stof(texto);
+        // value = stof(texto);
     } else {
         value = 0.0;
     }
