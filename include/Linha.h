@@ -13,20 +13,8 @@ class Linha {
         void Desenha();
     private:
         float pontos[9][3];
-        vector<vector<float>> v;
         int qtPontos;
-        float aresta;
-        float transX, transY;
-        float scaleX, scaleY;
-        float rotaX, rotaY;
-        float reflexX, reflexY;
-        int refX, refY;
-        bool trans, scale, rota, reflex, cis;
-        float centerX, centerY;
-        float angle;
         float prec;
-        float mCis[4][4];
-        float mT[4][4];
 };
 
 #endif

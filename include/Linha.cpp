@@ -12,53 +12,6 @@ Linha::Linha(int qt, float pontos[][3], float prec) {
         this->pontos[i][1] = pontos[i][1];
         this->pontos[i][2] = pontos[i][2];
     }
-    this->transX = 0.0;
-    this->transY = 0.0;
-    this->scaleX = 1.0;
-    this->scaleY = 1.0;
-    this->reflexX = 1.0;
-    this->reflexY = 1.0;
-    this->centerX = 0.0;
-    this->centerY = 0.0;
-    this->angle = 0.0;
-    this->trans = false;
-    this->scale = false;
-    this->rota = false;
-    this->reflex = false;
-    this->cis = false;
-
-    mCis[0][0] = 1.0;
-    mCis[1][0] = 0.0;
-    mCis[2][0] = 0.0;
-    mCis[3][0] = 0.0;
-    mCis[0][1] = 0.0;
-    mCis[1][1] = 1.0;
-    mCis[2][1] = 0.0;
-    mCis[3][1] = 0.0;
-    mCis[0][2] = 0.0;
-    mCis[1][2] = 0.0;
-    mCis[2][2] = 1.0;
-    mCis[3][2] = 0.0;
-    mCis[0][3] = 0.0;
-    mCis[1][3] = 0.0;
-    mCis[2][3] = 0.0;
-    mCis[3][3] = 1.0;
-    mT[0][0] = 1.0;
-    mT[1][0] = 0.0;
-    mT[2][0] = 0.0;
-    mT[3][0] = 0.0;
-    mT[0][1] = 0.0;
-    mT[1][1] = 1.0;
-    mT[2][1] = 0.0;
-    mT[3][1] = 0.0;
-    mT[0][2] = 0.0;
-    mT[1][2] = 0.0;
-    mT[2][2] = 1.0;
-    mT[3][2] = 0.0;
-    mT[0][3] = 0.0;
-    mT[1][3] = 0.0;
-    mT[2][3] = 0.0;
-    mT[3][3] = 1.0;
 }
 Linha::Linha(int qt, vector<vector<float>> pontos, float prec) {
     this->qtPontos = qt;
@@ -68,53 +21,6 @@ Linha::Linha(int qt, vector<vector<float>> pontos, float prec) {
         this->pontos[i][1] = pontos.at(i).at(1);
         this->pontos[i][2] = 0.0;
     }
-    this->transX = 0.0;
-    this->transY = 0.0;
-    this->scaleX = 1.0;
-    this->scaleY = 1.0;
-    this->reflexX = 1.0;
-    this->reflexY = 1.0;
-    this->centerX = 0.0;
-    this->centerY = 0.0;
-    this->angle = 0.0;
-    this->trans = false;
-    this->scale = false;
-    this->rota = false;
-    this->reflex = false;
-    this->cis = false;
-
-    mCis[0][0] = 1.0;
-    mCis[1][0] = 0.0;
-    mCis[2][0] = 0.0;
-    mCis[3][0] = 0.0;
-    mCis[0][1] = 0.0;
-    mCis[1][1] = 1.0;
-    mCis[2][1] = 0.0;
-    mCis[3][1] = 0.0;
-    mCis[0][2] = 0.0;
-    mCis[1][2] = 0.0;
-    mCis[2][2] = 1.0;
-    mCis[3][2] = 0.0;
-    mCis[0][3] = 0.0;
-    mCis[1][3] = 0.0;
-    mCis[2][3] = 0.0;
-    mCis[3][3] = 1.0;
-    mT[0][0] = 1.0;
-    mT[1][0] = 0.0;
-    mT[2][0] = 0.0;
-    mT[3][0] = 0.0;
-    mT[0][1] = 0.0;
-    mT[1][1] = 1.0;
-    mT[2][1] = 0.0;
-    mT[3][1] = 0.0;
-    mT[0][2] = 0.0;
-    mT[1][2] = 0.0;
-    mT[2][2] = 1.0;
-    mT[3][2] = 0.0;
-    mT[0][3] = 0.0;
-    mT[1][3] = 0.0;
-    mT[2][3] = 0.0;
-    mT[3][3] = 1.0;
 }
 void Linha::Desenha() {
     // printf("Ponto: %d\n", qtPontos);
